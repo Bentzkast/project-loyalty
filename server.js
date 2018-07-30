@@ -38,8 +38,8 @@ io.on("connection", function(socket) {
     // setup controls
     socket.on("moveRequest", function(moveData) {
       console.log("move request - ", moveData);
-      socket.player.x += moveData.x;
-      socket.player.y += moveData.y;
+      socket.player.x = moveData.x;
+      socket.player.y = moveData.y;
       // tell all client to move this player
       console.log("send move order to", socket.player);
 

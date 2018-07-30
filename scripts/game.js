@@ -119,19 +119,20 @@ class Game {
 
     let velocity = { x: 0, y: 0 };
     if (pressedKeys.left) {
-      velocity.x -= controlled.speed * deltaTime;
+      controlled.x -= controlled.speed * deltaTime;
     }
     if (pressedKeys.right) {
-      velocity.x += controlled.speed * deltaTime;
+      controlled.x += controlled.speed * deltaTime;
     }
     if (pressedKeys.down) {
-      velocity.y += controlled.speed * deltaTime;
+      controlled.y += controlled.speed * deltaTime;
     }
     if (pressedKeys.up) {
-      velocity.y -= controlled.speed * deltaTime;
+      controlled.y -= controlled.speed * deltaTime;
     }
     if (velocity.x === 0 && velocity.y === 0) return;
-    Client.moveRequest({ id: this.id, x: velocity.x, y: velocity.y });
+
+    Client.moveRequest({ id: this.id, x: controlled.x, y: controlled.y });
   }
 
   loop(timestamp) {

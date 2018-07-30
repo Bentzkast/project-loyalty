@@ -7,4 +7,11 @@ main mechanic
 - resource pool 
 - pricing 
 - contested resources
+- inventory
+- progression
 
+refactor 
+clean up animation delay
+click control
+display name
+add login and user
