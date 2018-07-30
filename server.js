@@ -43,7 +43,7 @@ io.on("connection", function(socket) {
       // tell all client to move this player
       console.log("send move order to", socket.player);
 
-      io.emit("move", socket.player);
+      socket.broadcast.emit("move", socket.player);
     });
 
     // remove req to client when disconnected
