@@ -80,6 +80,10 @@ class Game {
     this.addNewPlayer = this.addNewPlayer.bind(this);
   }
 
+  version() {
+    return "Version 0.0.2 - latency fix";
+  }
+
   addNewPlayer(id, x, y) {
     let square = new Square(id, x, y);
     this.gameObjects.set(square.id, square);
@@ -119,19 +123,20 @@ class Game {
 
     let velocity = { x: 0, y: 0 };
     if (pressedKeys.left) {
-      controlled.x -= controlled.speed * deltaTime;
+      velocity.x -= controlled.speed * deltaTime;
     }
     if (pressedKeys.right) {
-      controlled.x += controlled.speed * deltaTime;
+      velocity.x += controlled.speed * deltaTime;
     }
     if (pressedKeys.down) {
-      controlled.y += controlled.speed * deltaTime;
+      velocity.y += controlled.speed * deltaTime;
     }
     if (pressedKeys.up) {
-      controlled.y -= controlled.speed * deltaTime;
+      velocity.y -= controlled.speed * deltaTime;
     }
     if (velocity.x === 0 && velocity.y === 0) return;
-
+    controlled.x += velocity.x;
+    controlled.y += velocity.y;
     Client.moveRequest({ id: this.id, x: controlled.x, y: controlled.y });
   }
 
