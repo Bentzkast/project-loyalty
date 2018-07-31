@@ -6,6 +6,8 @@ var server = require("http").Server(app);
 var io = require("socket.io").listen(server);
 // other
 const port = process.env.PORT || 5000;
+const Operations = require("./js/operations");
+
 // determine which folder to use
 app.use("/styles", express.static(__dirname + "/styles"));
 app.use("/scripts", express.static(__dirname + "/scripts"));
@@ -18,7 +20,7 @@ server.lastPlayerID = 0;
 
 io.on("connection", function(socket) {
   console.log("a user connected");
-  socket.on("newPlayer", function() {
+  socket.on(Operations.REQ_NEW_PLAYER, function() {
     // create new player object
 
     socket.player = {
@@ -36,13 +38,14 @@ io.on("connection", function(socket) {
     socket.emit("setPlayer", socket.player);
 
     // setup controls
-    socket.on("moveRequest", function(moveData) {
+    socket.on(Operations.REQ_MOVE, function(moveData) {
       console.log("move request - ", moveData);
       socket.player.x = moveData.x;
       socket.player.y = moveData.y;
       // tell all client to move this player
       console.log("send move order to", socket.player);
 
+      // update player pos
       socket.broadcast.emit("move", socket.player);
     });
 
